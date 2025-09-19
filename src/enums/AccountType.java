@@ -2,5 +2,5 @@ package enums;
 
 public enum AccountType {
     CHECKING,
-    SAVINGS
+    CURRENT, SAVINGS
 }

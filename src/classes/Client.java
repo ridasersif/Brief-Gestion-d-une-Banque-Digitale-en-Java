@@ -1,3 +1,5 @@
+package classes;
+import enums.AccountType;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -6,30 +8,23 @@ public class Client extends User {
     private int clientId;
     private Map<Integer, Account> accounts;
 
-    public Client(String lastName, String firstName, String email, String password) {
+    public Client(String lastName, String firstName, String email, String password, AccountType accountType, double initialBalance) {
         super(lastName, firstName, email, password);
         this.clientId = ++clientCounter;
         this.accounts = new HashMap<>();
+        Account firstAccount = new Account(initialBalance, accountType);
+        this.addAccount(firstAccount);
     }
 
-    // Getters
-    public int getClientId() {
-        return clientId;
-    }
-
-    public Map<Integer, Account> getAccounts() {
-        return accounts;
-    }
-
+    public int getClientId() { return clientId; }
+    public Map<Integer, Account> getAccounts() { return accounts; }
 
     public void addAccount(Account account){
         accounts.put(account.getAccountId(), account);
         System.out.println("Account created for client: " +  account.getAccountId());
     }
 
-
     public void removeAccount(int accountId){
-        accounts.remove(accountId);
         if(accounts.containsKey(accountId)){
             accounts.remove(accountId);
             System.out.println("Account " + accountId + " has been removed successfully.");
@@ -38,9 +33,8 @@ public class Client extends User {
         }
     }
 
-
-    public Account getAccount(int accountId){
-        return accounts.get(accountId);
+    public Account getFirstAccount(){
+        return accounts.values().iterator().next();
     }
 
     @Override
